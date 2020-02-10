@@ -87,7 +87,11 @@ jobs:
     inputs:
       testResultsFormat: VSTest
       testResultsFiles: '**/*.trx' 
-  - task: CopyFiles@2
+  - task: DotNetCoreCLI@2
     inputs:
-      targetFolder: '$(Build.ArtifactStagingDirectory)'    
-  -   task: PublishBuildArtifacts@1
+      command: publish
+      publishWebProjects: True
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: True
+
+     
